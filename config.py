@@ -4,14 +4,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_ID = int(getenv("API_ID", 27353035))
-API_HASH = getenv("API_HASH", "cf2a75861140ceb746c7796e07cbde9e")
-BOT_TOKEN = getenv("BOT_TOKEN", None)
-OWNER_ID = int(getenv("OWNER_ID", "5822700831"))
-MONGO_URL = getenv("MONGO_URL", None)
-SUPPORT_GRP = getenv("SUPPORT_GRP", "Venom_Chatz")
-UPDATE_CHNL = getenv("UPDATE_CHNL", "VenomOwners")
-OWNER_USERNAME = getenv("OWNER_USERNAME", "Venom_bolte_pubIic")
+API_ID = int(getenv("API_ID", "11480225"))
+API_HASH = getenv("API_HASH", "4e246bace68111a0d82fa2ce96e0e5e3")
+BOT_TOKEN = getenv("BOT_TOKEN", "6412389950:AAHlzn5MR58ULGBf33Lxg2iV4o_FEszLoCs")
+OWNER_ID = int(getenv("OWNER_ID", "6671958102"))
+MONGO_URL = getenv("MONGO_URL", "mongodb+srv://fridabisov26:feridabusov2@cluster0.rrmqdo9.mongodb.net/?retryWrites=true&w=majority")
+SUPPORT_GRP = getenv("SUPPORT_GRP", "GenclikChats")
+UPDATE_CHNL = getenv("UPDATE_CHNL", "Botumsan")
+OWNER_USERNAME = getenv("OWNER_USERNAME", "ismayilofh")
 
 # Random Start Images
 IMG = [
