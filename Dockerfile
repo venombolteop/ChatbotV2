@@ -1,13 +1,20 @@
 FROM python:3.10-slim
 
-RUN apt-get update -y && apt-get upgrade -y
+WORKDIR /app
 
-RUN pip3 install -U pip
+# Install build tools required for tgcrypto
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY . /app/
-WORKDIR /app/
-RUN pip3 install --upgrade pip
-RUN pip3 install -U -r requirements.txt
+# Install python deps first (cache-friendly)
+COPY requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-CMD bash start
+# Copy app source
+COPY . .
 
+CMD ["bash", "start"]
