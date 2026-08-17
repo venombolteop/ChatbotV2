@@ -1,5 +1,3 @@
-
-
 import asyncio
 import random
 
@@ -23,18 +21,18 @@ from Venom.modules.helpers import (
 )
 
 
-@VenomX.on_cmd(["start", "aistart"])
+@VenomX.on_message(filters.command(["start", "aistart"]) & ~filters.bot)
 async def start(_, m: Message):
     if m.chat.type == ChatType.PRIVATE:
         accha = await m.reply_text(
             text=random.choice(EMOJIOS),
         )
         await asyncio.sleep(1.3)
-        await accha.edit("__ᴅιиg ᴅσиg ꨄ︎ ѕтαятιиg..__")
+        await accha.edit("Work with ✦ Sahab..")
         await asyncio.sleep(0.2)
-        await accha.edit("__ᴅιиg ᴅσиg ꨄ sтαятιиg.....__")
+        await accha.edit("Work with ✦ Sahab.....")
         await asyncio.sleep(0.2)
-        await accha.edit("__ᴅιиg ᴅσиg ꨄ︎ sтαятιиg..__")
+        await accha.edit("Work with ✦ Sahab..")
         await asyncio.sleep(0.2)
         await accha.delete()
         umm = await m.reply_sticker(sticker=random.choice(STICKER))
@@ -42,7 +40,7 @@ async def start(_, m: Message):
         await umm.delete()
         await m.reply_photo(
             photo=random.choice(IMG),
-            caption=f"""**๏ ʜᴇʏ, ɪ ᴀᴍ {VenomX.name}**\n**➻ ᴀɴ ᴀɪ ʙᴀsᴇᴅ ᴄʜᴀᴛʙᴏᴛ.**\n**──────────────**\n**➻ ᴜsᴀɢᴇ /chatbot [ᴏɴ/ᴏғғ]**\n<b>||๏ ʜɪᴛ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴ ғᴏʀ ʜᴇʟᴘ||</b>""",
+            caption=f"""**\u06f5 \u0647\u064a, \u0627\u0646\u0627 \u0627\u0645 {VenomX.name}**\n**\u2773 \u0627\u0646 \u0622\u06cc \u0628\u0627\u0633\u062a \u06f1 \u0686\u0627\u062a\u0628\u0648\u062a.**\n**\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501**\n**\u2773 \u0648\u0633\u0627\u063a\u0629 /chatbot [\u0645\u0637\u0641\u064a/\u0645\u0639\u0627\u0637\u0641]**\n<b>||\u06f5 \u0647\u06cc\u062a \u0647\u0644\u067e \u0628\u062a\u0646 \u0628\u0631\u0627\u06cc \u06a9\u0645\u06a9||</b>""",
             reply_markup=InlineKeyboardMarkup(DEV_OP),
         )
         await add_served_user(m.from_user.id)
@@ -55,10 +53,10 @@ async def start(_, m: Message):
         await add_served_chat(m.chat.id)
 
 
-@VenomX.on_cmd("help")
-async def help(client: VenomX, m: Message):
+@VenomX.on_message(filters.command("help") & ~filters.bot)
+async def help_cmd(client, m: Message):
     if m.chat.type == ChatType.PRIVATE:
-        hmm = await m.reply_photo(
+        await m.reply_photo(
             photo=random.choice(IMG),
             caption=HELP_READ,
             reply_markup=InlineKeyboardMarkup(HELP_BTN),
@@ -67,13 +65,13 @@ async def help(client: VenomX, m: Message):
     else:
         await m.reply_photo(
             photo=random.choice(IMG),
-            caption="**ʜᴇʏ, ᴘᴍ ᴍᴇ ғᴏʀ ʜᴇʟᴘ ᴄᴏᴍᴍᴀɴᴅs!**",
+            caption="**\u0647\u064a, \u067e\u0645 \u0645\u0646\u0628\u0631\u0627 \u0628\u0631\u0627\u06cc \u06a9\u0645\u06a9 \u06a9\u0645\u0627\u0646\u062f\u0627!**",
             reply_markup=InlineKeyboardMarkup(HELP_BUTN),
         )
         await add_served_chat(m.chat.id)
 
 
-@VenomX.on_cmd("repo")
+@VenomX.on_message(filters.command("repo") & ~filters.bot)
 async def repo(_, m: Message):
     await m.reply_text(
         text=SOURCE_READ,

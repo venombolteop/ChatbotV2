@@ -10,7 +10,6 @@ def is_admins(func: Callable) -> Callable:
     async def non_admin(c: VenomX, m: Message):
         if m.from_user.id == OWNER:
             return await func(c, m)
-
         admin = await c.get_chat_member(m.chat.id, m.from_user.id)
         if admin.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
             return await func(c, m)
@@ -18,5 +17,5 @@ def is_admins(func: Callable) -> Callable:
     return non_admin
 
 
-from .inline import *
-from .read import *
+from .inline import *  # noqa: E402, F401, F403
+from .read import *  # noqa: E402, F401, F403

@@ -1,24 +1,28 @@
-from Venom import db
-
-usersdb = db.users
+from Venom.database import users_col
 
 
 async def is_served_user(user_id: int) -> bool:
-    user = await usersdb.find_one({"user_id": user_id})
-    if not user:
+    try:
+        user = await users_col.find_one({"user_id": user_id})
+        return user is not None
+    except Exception:
         return False
-    return True
 
 
 async def get_served_users() -> list:
-    users_list = []
-    async for user in usersdb.find({"user_id": {"$gt": 0}}):
-        users_list.append(user)
-    return users_list
+    try:
+        users = await users_col.find({"user_id": {"$gt": 0}}).to_list(
+            length=100_000
+        )
+        return users or []
+    except Exception:
+        return []
 
 
 async def add_served_user(user_id: int):
-    is_served = await is_served_user(user_id)
-    if is_served:
-        return
-    return await usersdb.insert_one({"user_id": user_id})
+    try:
+        if await is_served_user(user_id):
+            return
+        await users_col.insert_one({"user_id": user_id})
+    except Exception:
+        pass

@@ -1,34 +1,37 @@
-from Venom import db
-
-chatsdb = db.chatsdb
+from Venom.database import chats_col
 
 
 async def get_served_chats() -> list:
-    chats = chatsdb.find({"chat_id": {"$lt": 0}})
-    if not chats:
+    try:
+        chats = await chats_col.find({"chat_id": {"$lt": 0}}).to_list(
+            length=100_000
+        )
+        return chats or []
+    except Exception:
         return []
-    chats_list = []
-    for chat in await chats.to_list(length=1000000000):
-        chats_list.append(chat)
-    return chats_list
 
 
 async def is_served_chat(chat_id: int) -> bool:
-    chat = await chatsdb.find_one({"chat_id": chat_id})
-    if not chat:
+    try:
+        chat = await chats_col.find_one({"chat_id": chat_id})
+        return chat is not None
+    except Exception:
         return False
-    return True
 
 
 async def add_served_chat(chat_id: int):
-    is_served = await is_served_chat(chat_id)
-    if is_served:
-        return
-    return await chatsdb.insert_one({"chat_id": chat_id})
+    try:
+        if await is_served_chat(chat_id):
+            return
+        await chats_col.insert_one({"chat_id": chat_id})
+    except Exception:
+        pass
 
 
 async def remove_served_chat(chat_id: int):
-    is_served = await is_served_chat(chat_id)
-    if not is_served:
-        return
-    return await chatsdb.delete_one({"chat_id": chat_id})
+    try:
+        if not await is_served_chat(chat_id):
+            return
+        await chats_col.delete_one({"chat_id": chat_id})
+    except Exception:
+        pass
