@@ -1,6 +1,6 @@
 import asyncio
 import importlib
-
+import sys
 from pyrogram import idle
 
 from Venom import LOGGER, VenomX
@@ -13,7 +13,7 @@ async def main():
         await VenomX.start()
     except Exception as ex:
         LOGGER.error(ex)
-        quit(1)
+        sys.exit(1)
 
     try:
         await init_indexes()
@@ -25,6 +25,7 @@ async def main():
 
     LOGGER.info(f"@{VenomX.username} Started.")
     await idle()
+    
     LOGGER.info("Shutting down Venom Bot...")
     await VenomX.stop()
     await close_db()
